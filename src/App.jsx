@@ -70,7 +70,7 @@ function App() {
 			case "lost": 
 				return <>
 								<Board knightPosition={knightPosition} moveKnight={moveKnight} movesField={movesField} /> 
-								<h1>Вы проиграли!!!</h1><Restart />
+								<h1>Вы проиграли!!!</h1><Restart restart={restartGame}/>
 							</>				
 			default:
 				return <Board knightPosition={knightPosition} moveKnight={moveKnight} movesField={movesField} /> ;
