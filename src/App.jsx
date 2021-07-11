@@ -14,7 +14,7 @@ function App() {
 
 	useEffect(() => {
 		if (moveCount === 100) {setGameStatus("win")};
-		if (cantMove()) {setGameStatus("lost")};
+		if (cantMove() && moveCount !== 100) {setGameStatus("lost")};
 	}, [knightPosition]);
 
 	const restartGame = () => {
@@ -65,7 +65,7 @@ function App() {
 			case "win": 
 				return <>
 								<Board knightPosition={knightPosition} moveKnight={moveKnight} movesField={movesField} /> 
-								<h1>You Won!!!</h1>
+								<h1>You Won!!!</h1><Restart restart={restartGame} />
 							</>
 			case "lost": 
 				return <>
