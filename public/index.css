@@ -1,0 +1,48 @@
+*
+{
+	box-sizing: border-box;
+	padding: 0px;
+	margin: 0px;
+}
+
+.container {
+	max-width: 604px;
+	margin:  0 auto;
+	text-align: center;
+	font-size: 28px;
+	color:  #cc6600;
+	margin-top:  20px;
+}
+
+.board {
+	margin: 0 auto;
+	width: 600px;
+	height: 600px;
+	display: flex;
+	flex-wrap: wrap;
+	border:  2px solid #cc6600;
+	color:  black;
+}
+
+.square {
+	width: 10%;
+	height: 10%;
+	text-align: center;
+	vertical-align: center;
+	cursor:  pointer;
+	font-size: 50px;
+}
+
+.knight {
+	font-size: 50px;
+}
+
+.start-button {
+	background-color: #009828;
+	border: none;
+	margin-top: 20px;
+	border-radius: 8px;
+	color:  white;
+	padding: 10px;
+	font-size: 20px;
+}
