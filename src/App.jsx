@@ -5,7 +5,7 @@ import Start from "./Start.jsx";
 import Restart from "./Restart.jsx";
 import "./appstyles.css";
 
-
+// Checking git reset
 function Knight100Game() {
 	const [gameStatus, setGameStatus] = useState("start");
 	const [knightPosition, setKnightPosition] = useState([0,0]);
