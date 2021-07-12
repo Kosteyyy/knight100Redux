@@ -6,7 +6,7 @@ import Restart from "./Restart.jsx";
 import "./appstyles.css";
 
 
-function App() {
+function Knight100Game() {
 	const [gameStatus, setGameStatus] = useState("start");
 	const [knightPosition, setKnightPosition] = useState([0,0]);
 	let emptyArray = new Array(100);
@@ -83,8 +83,12 @@ function App() {
 	}
 	
 	return (
-		<div className="container">{renderGame()}	</div>
+		<div id="knight100-container">{renderGame()}	</div>
 	)
+}
+
+function App() {
+	return <Knight100Game />
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));

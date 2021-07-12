@@ -8,7 +8,16 @@ function renderSquare(i, [knightX, knightY], moveKnight, moveNumber) {
 	const dark = ( x + y ) % 2 === 1;
 	const isKnightThere = i === knightX + knightY * 10;
 	
-	return (<div className="square" key={i} onClick={() => moveKnight(x, y)}><Square dark={dark}>{isKnightThere ? <Knight /> : moveNumber}</Square></div>)
+	// to change font-size when board size change get width of board
+	let appWidth = document.getElementById('knight100-container').offsetWidth;
+	
+	return (
+		<div className="square" key={i} onClick={() => moveKnight(x, y)}>
+			<div className="square-inner-element" style={{fontSize: appWidth/14}}>
+				<Square dark={dark}>{isKnightThere ? <Knight /> : moveNumber}</Square>
+			</div>
+		</div>
+	);
 	 
 }
 
