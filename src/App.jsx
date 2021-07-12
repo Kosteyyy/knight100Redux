@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Board from "./Board.jsx";
 import Start from "./Start.jsx";
 import Restart from "./Restart.jsx";
+import "./appstyles.css";
 
 
 function App() {
@@ -13,14 +14,18 @@ function App() {
 	const [moveCount, setMoveCount] = useState(1);
 
 	useEffect(() => {
-		if (moveCount === 100) {setGameStatus("win")};
-		if (cantMove() && moveCount !== 100) {setGameStatus("lost")};
+		if (moveCount === 100) {
+			setGameStatus("win")
+		} else if (cantMove()) {
+			setGameStatus("lost")
+		};
 	}, [knightPosition]);
 
 	const restartGame = () => {
 		setMovesField(emptyArray);
 		setKnightPosition([0,0]);
 		setMoveCount(1);
+		setGameStatus("play");
 	}
 
 	const canKnightMove = (ToX, ToY) => {
@@ -65,12 +70,12 @@ function App() {
 			case "win": 
 				return <>
 								<Board knightPosition={knightPosition} moveKnight={moveKnight} movesField={movesField} /> 
-								<h1>You Won!!!</h1><Restart restart={restartGame} />
+								<h1 className="win">Вы победили!!!</h1><Restart restart={restartGame} />
 							</>
 			case "lost": 
 				return <>
 								<Board knightPosition={knightPosition} moveKnight={moveKnight} movesField={movesField} /> 
-								<h1>Вы проиграли!!!</h1><Restart restart={restartGame}/>
+								<h1 className="lost">Вы проиграли!!!</h1><Restart restart={restartGame}/>
 							</>				
 			default:
 				return <Board knightPosition={knightPosition} moveKnight={moveKnight} movesField={movesField} /> ;
