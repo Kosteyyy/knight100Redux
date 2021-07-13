@@ -81,6 +81,12 @@ export default function Knight100Game() {
 	}
 	
 	return (
-		<div id="knight100-container">{renderGame()}	</div>
+		<div id="knight100-container">
+			{gameStatus === "start" && <Start setGameStatus={setGameStatus}/>}
+			{gameStatus !== "start" && <Board knightPosition={knightPosition} moveKnight={moveKnight} movesField={movesField} /> }
+			{gameStatus === "win" && <h1 className="win">Вы победили!!!</h1>}
+			{gameStatus === "lost" && <h1 className="lost">Вы проиграли!!!</h1>}
+			{gameStatus !== "start" && <Restart restart={restartGame} />}
+		</div>
 	)
 }
