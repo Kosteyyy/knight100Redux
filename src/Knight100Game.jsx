@@ -56,30 +56,6 @@ export default function Knight100Game() {
 		return true;
 	}
 
-	const renderGame = () => {
-		switch(gameStatus) {
-			case "start":
-				return <Start setGameStatus={setGameStatus}/>;
-			case "play":
-				return <>
-								<Board knightPosition={knightPosition} moveKnight={moveKnight} movesField={movesField} /> 
-								<Restart restart={restartGame} />
-							</>
-			case "win": 
-				return <>
-								<Board knightPosition={knightPosition} moveKnight={moveKnight} movesField={movesField} /> 
-								<h1 className="win">Вы победили!!!</h1><Restart restart={restartGame} />
-							</>
-			case "lost": 
-				return <>
-								<Board knightPosition={knightPosition} moveKnight={moveKnight} movesField={movesField} /> 
-								<h1 className="lost">Вы проиграли!!!</h1><Restart restart={restartGame}/>
-							</>				
-			default:
-				return <Board knightPosition={knightPosition} moveKnight={moveKnight} movesField={movesField} /> ;
-		}
-	}
-	
 	return (
 		<div id="knight100-container">
 			{gameStatus === "start" && <Start setGameStatus={setGameStatus}/>}

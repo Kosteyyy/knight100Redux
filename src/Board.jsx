@@ -8,27 +8,23 @@ function renderSquare(i, [knightX, knightY], moveKnight, moveNumber) {
 	const dark = ( x + y ) % 2 === 1;
 	const isKnightThere = i === knightX + knightY * 10;
 	
-	// to change font-size when board size change get width of board
-	let appWidth = document.getElementById('knight100-container').offsetWidth;
-	
 	return (
 		<div className="square" key={i} onClick={() => moveKnight(x, y)}>
-			<div className="square-inner-element" style={{fontSize: appWidth/14}}>
-				<Square dark={dark}>{isKnightThere ? <Knight /> : moveNumber}</Square>
-			</div>
+			<Square dark={dark}>{isKnightThere ? <Knight /> : moveNumber}</Square>
 		</div>
 	);
-	 
 }
 
 export default function Board({ knightPosition, moveKnight, movesField }) {
+	// to change font-size when board size change get width of board
+	let boardFontSize = document.getElementById('knight100-container').offsetWidth / 14;
 	const squares = [];
 	for (let i=0; i < 100; i++) {
 		squares.push(renderSquare(i, knightPosition, moveKnight, movesField[i]));
 	}
 
 	return (
-		<div className="board">
+		<div className="board" style={{fontSize: boardFontSize}}>
 			{squares}
 		</div>
 	)
