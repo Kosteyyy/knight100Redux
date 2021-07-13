@@ -1,33 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import Board from "./Board.jsx";
 import Start from "./Start.jsx";
 import Restart from "./Restart.jsx";
+import reducer from "./reducer.js";
 import "./appstyles.css";
 
+const emptyArray = new Array(100);
+const initialState = {
+	status: "start",
+	knightPosition: [0, 0],
+	movesField: emptyArray,
+	moveCount: 1
+}
+
 export default function Knight100Game() {
-	const [gameStatus, setGameStatus] = useState("start");
-	const [knightPosition, setKnightPosition] = useState([0,0]);
-	let emptyArray = new Array(100);
-	const [movesField, setMovesField] = useState(emptyArray);
-	const [moveCount, setMoveCount] = useState(1);
+	const [state, dispatch] = useReducer(reducer, initialState);
+	const {gameStatus, knightPosition, movesField, moveCount} = state;
 
 	useEffect(() => {
 		if (moveCount === 100) {
-			setGameStatus("win")
+			dispatch({ type: "WIN" })
 		} else if (cantMove()) {
-			setGameStatus("lost")
+			dispatch({ type: "LOST" })
 		};
 	}, [knightPosition]);
 
 	const restartGame = () => {
-		setMovesField(emptyArray);
-		setKnightPosition([0,0]);
-		setMoveCount(1);
-		setGameStatus("play");
+		dispatch({ type: "START_GAME" });
 	}
 
 	const canKnightMove = (ToX, ToY) => {
-		if (movesField[getSquareIndex([ToX, ToY])] > 0) return false;
+		if (movesField[getSquareIndex([ToX, ToY])] > 0) return false; // if field already used
 		const difX = Math.abs(ToX - knightPosition[0]);
 		const difY = Math.abs(ToY - knightPosition[1]);
 		return (difX === 2 && difY === 1) || (difX === 1 && difY === 2);
@@ -42,27 +45,25 @@ export default function Knight100Game() {
 			const y = Math.floor(i / 10);
 			if (canKnightMove(x, y)) {possiblemoves++};
 		}
-		return possiblemoves === 0;
+		return possiblemoves === 0; //can't move if 0 squares to move
 	}
 
 	const moveKnight = (ToX, ToY) => {
 		if (canKnightMove(ToX, ToY)) {
-			setMoveCount(moveCount + 1);
-			let tempArray = [...movesField];
-			tempArray[getSquareIndex([...knightPosition])] = moveCount;	
-			setMovesField(tempArray);
-			setKnightPosition ([ToX, ToY]);
+			dispatch({ 
+				type: "MOVE_KNIGHT",
+				payload: [ToX, ToY]})
 		}
 		return true;
 	}
 
 	return (
 		<div id="knight100-container">
-			{gameStatus === "start" && <Start setGameStatus={setGameStatus}/>}
-			{gameStatus !== "start" && <Board knightPosition={knightPosition} moveKnight={moveKnight} movesField={movesField} /> }
-			{gameStatus === "win" && <h1 className="win">Вы победили!!!</h1>}
-			{gameStatus === "lost" && <h1 className="lost">Вы проиграли!!!</h1>}
-			{gameStatus !== "start" && <Restart restart={restartGame} />}
+			{state.status === "start" && <Start startGame={restartGame}/>}
+			{state.status !== "start" && <Board knightPosition={knightPosition} moveKnight={moveKnight} movesField={movesField} /> }
+			{state.status === "win" && <h1 className="win">Вы победили!!!</h1>}
+			{state.status === "lost" && <h1 className="lost">Вы проиграли!!!</h1>}
+			{state.status !== "start" && <Restart restart={restartGame} />}
 		</div>
 	)
 }
