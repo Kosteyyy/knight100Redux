@@ -1,7 +1,7 @@
 {
-  "name": "knight100",
+  "name": "knight100reducer",
   "version": "1.0.0",
-  "description": "",
+  "description": "knight100 game with reducer state management",
   "main": "index.js",
   "scripts": {
     "compile": "webpack --mode production",
@@ -23,5 +23,13 @@
   "dependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kosteyyy/knight100reducer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Kosteyyy/knight100reducer/issues"
+  },
+  "homepage": "https://github.com/Kosteyyy/knight100reducer#readme"
 }
