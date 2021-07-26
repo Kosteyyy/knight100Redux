@@ -1,4 +1,13 @@
-export default function reducer(state, action) {
+const emptyArray = new Array(100);
+
+const initialState = {
+	status: "start",
+	knightPosition: [0, 0],
+	movesField: emptyArray,
+	moveCount: 1
+}
+
+export default function reducer(state = initialState, action) {
 	switch (action.type) {
 
 		case "START_GAME":

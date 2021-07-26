@@ -3,19 +3,11 @@ import Board from "./Board.jsx";
 import Start from "./Start.jsx";
 import Restart from "./Restart.jsx";
 import reducer from "./reducer.js";
+import { Provider, connect } from 'react-redux';
 import "./appstyles.css";
 
-const emptyArray = new Array(100);
-const initialState = {
-	status: "start",
-	knightPosition: [0, 0],
-	movesField: emptyArray,
-	moveCount: 1
-}
-
-export default function Knight100Game() {
-	const [state, dispatch] = useReducer(reducer, initialState);
-	const {gameStatus, knightPosition, movesField, moveCount} = state;
+function Knight100Game(props) {
+	const {status, knightPosition, movesField, moveCount, dispatch} = props;
 
 	useEffect(() => {
 		if (moveCount === 100) {
@@ -36,7 +28,7 @@ export default function Knight100Game() {
 		return (difX === 2 && difY === 1) || (difX === 1 && difY === 2);
 	}
   
-	const getSquareIndex = ([x, y]) => (x + y * 10);
+	const getSquareIndex = ([x, y]) => (x + y * 10); //returns index of square from coordinates 
 
 	const cantMove = () => {
 		let possiblemoves = 0;
@@ -59,11 +51,22 @@ export default function Knight100Game() {
 
 	return (
 		<div id="knight100-container">
-			{state.status === "start" && <Start startGame={restartGame}/>}
-			{state.status !== "start" && <Board knightPosition={knightPosition} moveKnight={moveKnight} movesField={movesField} /> }
-			{state.status === "win" && <h1 className="win">Вы победили!!!</h1>}
-			{state.status === "lost" && <h1 className="lost">Вы проиграли!!!</h1>}
-			{state.status !== "start" && <Restart restart={restartGame} />}
+			{status === "start" && <Start startGame={restartGame}/>}
+			{status !== "start" && <Board knightPosition={knightPosition} moveKnight={moveKnight} movesField={movesField} /> }
+			{status === "win" && <h1 className="win">Вы победили!!!</h1>}
+			{status === "lost" && <h1 className="lost">Вы проиграли!!!</h1>}
+			{status !== "start" && <Restart restart={restartGame} />}
 		</div>
 	)
 }
+
+function mapStateToProps(state) {
+	return {
+		status: state.status,
+		knightPosition: state.knightPosition,
+		movesField: state.movesField,
+		moveCount: state.moveCount
+	}
+}
+
+export default connect(mapStateToProps) (Knight100Game);
